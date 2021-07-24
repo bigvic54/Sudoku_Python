@@ -13,14 +13,14 @@ class Game:
         for i in range(0, 9):
             print(gridLocal[i])
 
-    def __isSafeRow(self,row, num):
+    def __isSafeRow(self, row, num):
         for i in range(0, 9):
             if self.grid[row][i] == num:
                 return False
 
         return True
 
-    def __isSafeCol(self,col, num):
+    def __isSafeCol(self, col, num):
         for i in range(0, 9):
             if self.grid[i][col] == num:
                 return False
@@ -194,11 +194,19 @@ class Delegate(QtWidgets.QStyledItemDelegate):
     def paint(self, painter, option, index):
         super().paint(painter, option, index)
 
-        if (1 + index.row()) % 3 == 0:  # Every third row
+        if index.row() == 0:    # First row
+            painter.setPen(QtGui.QPen(QtGui.Qt.black, 3))
+            painter.drawLine(option.rect.topLeft(), option.rect.topRight())
+
+        elif (1 + index.row()) % 3 == 0:  # Every third row
             painter.setPen(QtGui.QPen(QtGui.Qt.black, 3))
             painter.drawLine(option.rect.bottomLeft(), option.rect.bottomRight())
 
-        if (1 + index.column()) % 3 == 0:  # Every third column
+        if index.column() == 0: # First column
+            painter.setPen(QtGui.QPen(QtGui.Qt.black, 3))
+            painter.drawLine(option.rect.topLeft(), option.rect.bottomLeft())
+
+        elif (1 + index.column()) % 3 == 0:  # Every third column
             painter.setPen(QtGui.QPen(QtGui.Qt.black, 3))
             painter.drawLine(option.rect.topRight(), option.rect.bottomRight())
 
